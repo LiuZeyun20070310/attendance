@@ -2,14 +2,13 @@
 FROM tomcat:9.0-jdk11-corretto
 
 # Remove the default Tomcat welcome applications (optional)
-RUN rm -rf /usr/local/tomcat/webapps/ROOT \
-           /usr/local/tomcat/webapps/docs \
+RUN rm -rf /usr/local/tomcat/webapps/docs \
            /usr/local/tomcat/webapps/examples \
            /usr/local/tomcat/webapps/host-manager \
            /usr/local/tomcat/webapps/manager
 
-# Copy the war file into Tomcat's webapps folder
-COPY attendance.war /usr/local/tomcat/webapps/attendance.war
+# Copy the war file as ROOT so app runs at the root context path
+COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Use an entry point that adapts the port to Render's PORT variable
 COPY entrypoint.sh /usr/local/tomcat/bin/entrypoint.sh
